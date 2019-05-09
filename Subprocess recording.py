@@ -15,6 +15,10 @@ if False: # this block works
     p = subprocess.Popen(command,stdin=subprocess.PIPE)
     input("Press Enter to stop capture...")
     os.kill(p.pid, 15)
+    # for windows
+    # import ctypes
+    # ctypes.windll.kernel32.TerminateProcess(int(p._handle), -1)
+
 
 if True:
     # Axis camera parameters
