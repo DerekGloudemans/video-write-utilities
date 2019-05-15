@@ -17,19 +17,23 @@ from datetime import datetime
 if __name__ == "__main__":
     
     infile = "traffic1.mkv"
-    outfile = "test_output1.avi"
+    outfile = "test_output1.mp4"
     tempimfile = "tempim.jpg"
     
     # open VideoCapture object to covert videoFrames to image files
     cap = cv2.VideoCapture(infile)
-    
+
     # Check if camera opened successfully
     if cap.isOpened():
         retval,im = cap.read()
         im = cv2.cvtColor(im,cv2.COLOR_BGR2RGB) 
-        #plt.imshow(im)
-        #plt.title("Sample Image")
-    
+        
+        frame_height = int(cap.get(4))
+        frame_width = int(cap.get(3))        
+        
+        # Define the codec and create VideoWriter object
+        out = cv2.VideoWriter(outfile,cv2.VideoWriter_fourcc('M','J','P','G'), 30, (frame_width,frame_height))
+
     else: 
       print("Error opening video stream or file")
       
@@ -41,31 +45,22 @@ if __name__ == "__main__":
             print("Operation escaped.")
             break
         
-        # save current image as a file
-        cv2.imwrite(tempimfile,im) 
-
-        # Define the codec and create VideoWriter object
-        frame_height = int(cap.get(4))
-        frame_width = int(cap.get(3))
-
-        out = cv2.VideoWriter(outfile,0, 30, (frame_width,frame_height))
-        
-        loadim = cv2.imread(tempimfile)
-        
-        os.system('/home/worklab/darknet/darknet detect /home/worklab/darknet/cfg/yolov3.cfg /home/worklab/darknet/yolov3.weights ' +tempimfile)
-
-        
-        out.write(loadim)
+        #loadim = cv2.imread(tempimfile)
+        #os.system('/home/worklab/darknet/darknet detect /home/worklab/darknet/cfg/yolov3.cfg /home/worklab/darknet/yolov3.weights ' +tempimfile)
+        out.write(im)
         
         # attempt to get next frame
         retval,im = cap.read()
         im = cv2.cvtColor(im,cv2.COLOR_BGR2RGB)
         
         frame_counter = frame_counter + 1
+        if frame_counter % 100 == 0:
+            print(frame_counter)
     
     # close VideoCapture and VideoWriter objects
     cap.release()
     out.release()
  
+    print("done")
     # Closes all the frames
     cv2.destroyAllWindows()
