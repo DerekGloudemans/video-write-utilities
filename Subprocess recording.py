@@ -7,8 +7,8 @@ import signal
 import subprocess
 from datetime import datetime
 
-if False: # this block works
-    command = ['ffmpeg', '-i', 'rtsp://root:worklab@192.168.1.10/axis-media/media.amp?framerate=30.0?streamprofile=vlc', '-acodec', 'copy', '-vcodec', 'copy', '-r', '30.0', 'test_ff_mpeg_3.avi']
+if True: # this block works
+    command = ['ffmpeg', '-i', 'rtsp://root:worklab@192.168.1.10/axis-media/media.amp?framerate=30.0?streamprofile=preview', '-acodec', 'copy', '-vcodec', 'copy', '-r', '30.0', 'test_ff_mpeg_4.avi']
     #command = ['ffmpeg', '-i', 'rtsp://root:worklab@192.168.1.10/axis-media/media.amp?framerate=30.0?streamprofile=vlc', '-acodec', 'copy', '-vcodec', 'copy', '-r', '30.0', '-map', '0', '-segment_time', '00:00:05', '-f', 'segment', 'test_ff_mpeg_%03d.avi']
 
     #p = subprocess.Popen(command)
@@ -16,7 +16,7 @@ if False: # this block works
     input("Press Enter to stop capture...")
     os.kill(p.pid, 15)
 
-if True:
+if False:
     # Axis camera parameters
     camera1 = {
         'name': 'Axis_Camera_1',
