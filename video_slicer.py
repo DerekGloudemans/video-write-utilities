@@ -38,6 +38,7 @@ if False:
 if True:
 
     file_list = []
+    
     file = {}
     file['path'] = '/home/worklab/Documents/CV-detection/data/20190422_102232_6D24.mkv'
     file['start_time'] = 20
@@ -103,7 +104,7 @@ if True:
           if ret == True: 
             
             t = cap.get(0)/ 1000.0
-            print(t)
+            if t% 10 == 0 print(t)
             if t > file['start_time'] and t < file['end_time']:
                 # Write the frame into the file 'output.avi'
                 out.write(frame)
@@ -133,7 +134,6 @@ if True:
         
         i += 1 
         
-        break
     
         
     cv2.destroyAllWindows()
