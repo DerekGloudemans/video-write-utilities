@@ -104,7 +104,8 @@ if True:
           if ret == True: 
             
             t = cap.get(0)/ 1000.0
-            if t% 10 == 0 print(t)
+            if t%10 == 0: print(t)
+        
             if t > file['start_time'] and t < file['end_time']:
                 # Write the frame into the file 'output.avi'
                 out.write(frame)
