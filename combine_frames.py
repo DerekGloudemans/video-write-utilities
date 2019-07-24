@@ -3,14 +3,14 @@ import numpy as np
 import time
 
 paths = [
-        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_10/cam_0_capture_003.avi",
-        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_12/cam_2_capture_003.avi",
-        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_13/cam_3_capture_003.avi",
-        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_14/cam_4_capture_003.avi",
-        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_15/cam_5_capture_003.avi",
-        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_16/cam_1_capture_003.avi"
+        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_10/cam_0_capture_002.avi",
+        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_12/cam_2_capture_002.avi",
+        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_13/cam_3_capture_002.avi",
+        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_14/cam_4_capture_002.avi",
+        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_15/cam_5_capture_002.avi",
+        "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_16/cam_1_capture_002.avi"
         ]
-file_out = "combined_1.avi"
+file_out = "combined_2.avi"
 show = False
 
 # open capture devices to read video files

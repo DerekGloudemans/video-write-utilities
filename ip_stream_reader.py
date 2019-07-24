@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Next, try to convert this .mov file into a .mpg file and save it
 # Create a VideoCapture object
-cap = cv2.VideoCapture('Falls9.mov')
+cap = cv2.VideoCapture("/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_16/cam_1_capture_002.avi")
  
 # Check if camera opened successfully
 if (cap.isOpened() == False): 
@@ -19,8 +19,9 @@ frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
  
 # Define the codec and create VideoWriter object.The output is stored in 'outpy.avi' file.
-out = cv2.VideoWriter('Falls29.avi',cv2.CAP_FFMPEG,0, 30, (frame_width,frame_height))
- 
+out = cv2.VideoWriter('temp.avi',cv2.CAP_FFMPEG,0, 30, (frame_width,frame_height))
+last = 0
+
 while(True):
   ret, frame = cap.read()
  
@@ -31,7 +32,10 @@ while(True):
  
     # Display the resulting frame    
     cv2.imshow('frame',frame)
- 
+    
+    
+    print(cap.get(0)-last)
+    last = cap.get(0)
     # Press Q on keyboard to stop recording
     if cv2.waitKey(1) & 0xFF == ord('q'):
       break
