@@ -10,8 +10,32 @@ paths = [
         "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_15/cam_5_capture_002.avi",
         "/media/worklab/data_HDD/cv_data/video/data - test pole 6 cameras july 22/Jul_22_2019_12-05-07/Axis_Camera_16/cam_1_capture_002.avi"
         ]
-file_out = "combined_2.avi"
+paths = [
+        
+"/home/worklab/Documents/CV-detection/example_videos/110_foot_example_tracks/detect0.avi",
+"/home/worklab/Documents/CV-detection/example_videos/110_foot_example_tracks/detect3.avi",
+"/home/worklab/Documents/CV-detection/example_videos/110_foot_example_tracks/detect1.avi",
+"/home/worklab/Documents/CV-detection/example_videos/110_foot_example_tracks/track0.avi",
+"/home/worklab/Documents/CV-detection/example_videos/110_foot_example_tracks/track3.avi",
+"/home/worklab/Documents/CV-detection/example_videos/110_foot_example_tracks/track1.avi"
+]
+
+paths = [
+        
+"/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_10/cam_0_capture_000.avi",
+"/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_12/cam_2_capture_000.avi",
+"/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_13/cam_3_capture_000.avi",
+"/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_14/cam_4_capture_000.avi",
+"/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_15/cam_5_capture_000.avi",
+"/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_16/cam_1_capture_000.avi"
+]
+
+
+file_out = "combined_110_foot_1.avi"
+title_frame = "/home/worklab/Desktop/110 Traffic Camera Pole Test.jpg"
 show = False
+
+
 
 # open capture devices to read video files
 cap_list = []
@@ -33,13 +57,22 @@ frame_height = int(cap_list[0].get(4)*n_high /2.0)
 if file_out != None:
     out = cv2.VideoWriter(file_out,cv2.CAP_FFMPEG,cv2.VideoWriter_fourcc('H','2','6','4'), 30, (frame_width,frame_height))
 
-
+# add title frame for 2.5 seconds
+if title_frame != None:
+    title = cv2.imread(title_frame,1)
+    for i in range(0,75):
+        out.write(cv2.resize(title,(1920*3,1080*2)))
+    
 # read first frame from all captures
 frames = []
+#i = 0
 for cap in cap_list:
     ret,frame = cap.read()
+    #cv2.imwrite("align{}.jpg".format(i),frame)
     frame = cv2.resize(frame,(1920,1080))
     frames.append(frame)
+    #i = i + 1
+    
 
 start = time.time()
 frame_num = 0
@@ -64,6 +97,8 @@ while cap.isOpened():
         frames = []
         for cap in cap_list:
             ret,frame = cap.read()
+            if ret == False:
+                break
             frame = cv2.resize(frame,(1920,1080))
             frames.append(frame)
         
