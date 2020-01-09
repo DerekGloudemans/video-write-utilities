@@ -4,22 +4,33 @@ import numpy as np
 import cv2
 
 
-im0 = mpimg.imread("6_camera_align/align0.jpg")
-im1 = mpimg.imread("6_camera_align/align1.jpg")
+im0 = mpimg.imread("6_camera_align/align3.jpg")
+im1 = mpimg.imread("6_camera_align/align4.jpg")
+plt.imshow(im0)
+plt.figure()
 plt.imshow(im1)
 
 border_width = 0
 # pad images
 im0 = cv2.copyMakeBorder(im0,border_width,border_width,border_width,border_width,cv2.BORDER_CONSTANT,(0,0,0))
 
-im_pts_0 = np.array([[3759,1395],
-                    [3145,1028],
-                    [3262,314],
-                    [3760,697]])
-im_pts_1 = np.array([[1233,1716],
-                     [240,1384],
-                     [146,177],
-                     [990,703]])
+im_pts_0 = np.array([[2825,863],
+                    [2131,1211],
+                    [2491,1748],
+                    [2768,2117]])
+im_pts_1 = np.array([[572,744],
+                     [55,1405],
+                     [734,1640],
+                     [1136,1751]])
+
+#im_pts_0 = np.array([[3759,1395],
+#                    [3145,1028],
+#                    [3262,314],
+#                    [3760,697]])
+#im_pts_1 = np.array([[1233,1716],
+#                     [240,1384],
+#                     [146,177],
+#                     [990,703]])
 im_pts_0 = np.float32(im_pts_0+border_width)
 im_pts_1 = np.float32(im_pts_1+border_width)
 
@@ -54,5 +65,6 @@ def warpTwoImages(img1, img2, H):
 #src_pts = float32([kp2[m.trainIdx].pt for m in good]).reshape(-1,1,2)
 #M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
 
-result = warpTwoImages(im0, im1, M1)
+result = warpTwoImages(im1, im0, M1)
+result = cv2.resize(result, (1920,1080))
 cv2.imshow("frame",result)
