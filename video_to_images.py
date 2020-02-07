@@ -31,15 +31,17 @@ def video_to_images(video_file,out_directory = "temp"):
     
     while ret:  
 
-        result = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
-        result.save(out_directory + "/{}.bmp".format(frame_num))
-        if frame_num % 50 == 0:
+        #result = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+        #result.save(out_directory + "/{}.png".format(frame_num))
+        if frame_num % 100 == 0:
             print("On frame: {}, FPS: {:5.2f}".format(frame_num, 1.0 / (time.time() - start)))
+            result = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+            result.save(out_directory + "/{}.png".format(frame_num))
         frame_num += 1
         start = time.time()
         # get next frame
         ret, frame = cap.read()
-        if frame_num > 30*120: # early video cutoff
+        if frame_num > 2000: # early video cutoff
             cap.release()
             break
 
@@ -67,4 +69,11 @@ class ImDirectoryReader():
 
 video_file = '/media/worklab/data_HDD/cv_data/video/traffic_assorted/traffic_0.avi'
 out_directory = '/media/worklab/data_HDD/cv_data/video/traffic_assorted/traffic_0_frames'
+
+video_file = '/media/worklab/data_HDD/cv_data/video/1-week-test/Camera_15/cam_5_capture_000.avi'
+out_directory='/home/worklab/Desktop/SCOPE/camera_15'
+
+
+video_file = "/home/worklab/Documents/CV-detection/pipeline_files/track0.avi"
+out_directory= "/home/worklab/Documents/CV-detection/pipeline_files"
 video_to_images(video_file,out_directory)      
