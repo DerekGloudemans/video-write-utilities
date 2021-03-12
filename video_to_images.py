@@ -1,6 +1,7 @@
 import cv2
 import time
 from os import mkdir
+import os
 from PIL import Image 
 import numpy as np
 
@@ -8,7 +9,7 @@ import numpy as np
 makes a directory with each frame of the input video file as a separate image. 
 Useful to get rid of the overhead of video decoding and encoding during detection etc.
 """
-def video_to_images(video_file,out_directory = "temp"):
+def video_to_images(video_file,out_directory = "temp",surname = ""):
     # open up a videocapture object
     cap = cv2.VideoCapture(video_file)
     # verify file is opened
@@ -33,10 +34,10 @@ def video_to_images(video_file,out_directory = "temp"):
 
         #result = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
         #result.save(out_directory + "/{}.png".format(frame_num))
-        if frame_num % 100 == 0:
+        if frame_num % 1 == 0:
             print("On frame: {}, FPS: {:5.2f}".format(frame_num, 1.0 / (time.time() - start)))
             result = Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
-            result.save(out_directory + "/{}.png".format(frame_num))
+            result.save(out_directory + "/{}.png".format(str(frame_num).zfill(5)))
         frame_num += 1
         start = time.time()
         # get next frame
@@ -76,4 +77,9 @@ out_directory='/home/worklab/Desktop/SCOPE/camera_15'
 
 video_file = "/home/worklab/Documents/CV-detection/pipeline_files/track0.avi"
 out_directory= "/home/worklab/Documents/CV-detection/pipeline_files"
-video_to_images(video_file,out_directory)      
+
+# directory = '/home/worklab/Desktop/temp'
+# sequences = [os.path.join(directory,item) for item in os.listdir(directory)]
+# for video_file in sequences:
+#         out_directory = "temp"
+#         video_to_images(video_file,out_directory,surname = video_file.split("/")[-1])      

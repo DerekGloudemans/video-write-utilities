@@ -14,12 +14,12 @@ def im_to_vid(directory):
         img_array.append(img)
      
      
-    out = cv2.VideoWriter(os.path.join(directory,'video.avi'),cv2.VideoWriter_fourcc(*'DIVX'), 15, size)
+    out = cv2.VideoWriter(os.path.join("/home/worklab/Desktop",'video.avi'),cv2.VideoWriter_fourcc(*'MPEG'), 30, size)
      
     for i in range(len(img_array)):
         out.write(img_array[i])
     out.release()
     
-file = "/home/worklab/Documents/FAST-track/temp_output_ims"
-
+file = "/home/worklab/Data/cv/KITTI/data_tracking_image_2/training/image_02/0000"
+file = "/home/worklab/Documents/derek/track_i24/output/temp_frames"
 im_to_vid(file)
