@@ -280,8 +280,6 @@ if __name__ == "__main__":
         label_dir = "/home/worklab/Documents/derek/MOT-lbt/final_outputs/Submission 3 MOT20"               
         dataset = "/home/worklab/Data/cv/MOT20/test"
         for idx,track in enumerate(os.listdir(dataset)):
-            if idx in [0,1]:
-                continue
             
             dir = os.path.join(dataset,track,"img1")
             test = Frame_Labeler(dir)
