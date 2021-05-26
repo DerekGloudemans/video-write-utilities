@@ -22,4 +22,5 @@ def im_to_vid(directory):
     
 file = "/home/worklab/Data/cv/KITTI/data_tracking_image_2/training/image_02/0000"
 file = "/home/worklab/Documents/derek/track_i24/output/temp_frames"
+file = "/home/worklab/Documents/derek/LBT-count/vid"
 im_to_vid(file)

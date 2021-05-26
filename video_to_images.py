@@ -42,7 +42,7 @@ def video_to_images(video_file,out_directory = "temp",surname = ""):
         start = time.time()
         # get next frame
         ret, frame = cap.read()
-        if frame_num > 2000: # early video cutoff
+        if frame_num > 20: # early video cutoff
             cap.release()
             break
 
@@ -75,11 +75,11 @@ video_file = '/media/worklab/data_HDD/cv_data/video/1-week-test/Camera_15/cam_5_
 out_directory='/home/worklab/Desktop/SCOPE/camera_15'
 
 
-video_file = "/home/worklab/Documents/CV-detection/pipeline_files/track0.avi"
-out_directory= "/home/worklab/Documents/CV-detection/pipeline_files"
+video_dir = "/home/worklab/Data/cv/AIC21_Track1_Vehicle_Counting_full/AIC21_Track1_Vehicle_Counting/Dataset_A"
+#out_directory= "/home/worklab/Desktop/frames"
 
-# directory = '/home/worklab/Desktop/temp'
-# sequences = [os.path.join(directory,item) for item in os.listdir(directory)]
-# for video_file in sequences:
-#         out_directory = "temp"
-#         video_to_images(video_file,out_directory,surname = video_file.split("/")[-1])      
+directory = '/home/worklab/Desktop/frames'
+sequences = [os.path.join(video_dir,item) for item in os.listdir(video_dir)]
+for video_file in sequences:
+        out_directory = os.path.join(directory,video_file.split("/")[-1].split(".")[0])
+        video_to_images(video_file,out_directory,surname = video_file.split("/")[-1])      
