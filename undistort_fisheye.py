@@ -84,22 +84,29 @@ class Fisheye_Rectifier():
         
     def quit(self):
         cv2.destroyAllWindows()
-        self.find_optimal_warp()
+        #self.find_optimal_warp()
         
-        # compute K and D
-        # n = len(self.undistorted_points)
-        # calibration_flags = cv2.fisheye.CALIB_RECOMPUTE_EXTRINSIC + cv2.fisheye.CALIB_FIX_SKEW
+        #compute K and D
+        n = len(self.undistorted_points)
+        calibration_flags = cv2.fisheye.CALIB_RECOMPUTE_EXTRINSIC + cv2.fisheye.CALIB_FIX_SKEW
         
-        # undistorted = [np.array(self.undistorted_points)[np.newaxis,:,:].astype(np.float32)]
-        # distorted = [np.array(self.distorted_points)[np.newaxis,:,:].astype(np.float32)]
+        undistorted = [np.concatenate((np.array(self.undistorted_points),np.ones([n,1])),axis = 1)[np.newaxis,:,:].astype(np.float32)]
+        distorted = [np.array(self.distorted_points)[np.newaxis,:,:].astype(np.float32)]
         
-        # rvecs = [np.zeros((1, 1, 3), dtype=np.float32) for i in range(n)]
-        # tvecs = [np.zeros((1, 1, 3), dtype=np.float32) for i in range(n)]
-        # D = np.zeros([4,1]).astype(np.float32)
-        # K = np.zeros([3,3]).astype(np.float32)
-        # err, K, D, rvecs, tvecs = cv2.fisheye.calibrate(undistorted,distorted,self.fisheye_im.shape[0:2],K,D,rvecs,tvecs)
-        # print(K,D)
-        # return K,D
+        rvecs = [np.zeros((1, 1, 3), dtype=np.float32) for i in range(n)]
+        tvecs = [np.zeros((1, 1, 3), dtype=np.float32) for i in range(n)]
+        D = np.zeros([4,1]).astype(np.float32)
+        K = np.zeros([3,3]).astype(np.float32)
+        err, K, D, rvecs, tvecs = cv2.fisheye.calibrate(undistorted,distorted,self.fisheye_im.shape[0:2],K,D,rvecs,tvecs)
+        print(err,K,D)
+        
+        D = np.array([5,1,0,0])
+        output_im = cv2.undistort(self.fisheye_im,K,D)
+        
+        cv2.imshow("frame",output_im)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        return K,D
         
         
     def find_optimal_warp(self, epsilon = 100,delta = 1e-10,alpha = 0.01,order = 2,affine = True):
@@ -204,7 +211,8 @@ class Fisheye_Rectifier():
         try:
             self.distorted_points = points
             self.undistorted_points = targets
-            self.find_optimal_warp()
+            self.quit()
+            #self.find_optimal_warp()
         
         
         except:
@@ -294,81 +302,81 @@ if __name__ == "__main__":
         
     except:
         
-        # points = np.array([[3333,  633],
-        #                     [2988,  558],
-        #                     [2547,  486],
-        #                     [2031,  423],
-        #                     [1503,  387],
-        #                     [1011,  384],
-        #                     [ 606,  399],
-        #                     [ 558,  495],
-        #                     [ 972,  480],
-        #                     [1491,  495],
-        #                     [2043,  531],
-        #                     [2580,  594],
-        #                     [3036,  666],
-        #                     [3384,  732],
-        #                     [3471,  852],
-        #                     [3132,  798],
-        #                     [2673,  729],
-        #                     [2115,  666],
-        #                     [1542,  624],
-        #                     [ 996,  603],
-        #                     [1047, 1200],
-        #                     [1002, 1383],
-        #                     [ 978, 1590],
-        #                     [1737, 1257],
-        #                     [1692, 1452],
-        #                     [1698, 1677],
-        #                     [2442, 1314],
-        #                     [2436, 1500],
-        #                     [2466, 1710],
-        #                     [3036, 1332],
-        #                     [3042, 1503],
-        #                     [3090, 1698],
-        #                     [3459, 1344],
-        #                     [3483, 1494],
-        #                     [3519, 1662],
-        #                     [ 204, 1101],
-        #                     [ 120, 1413]])
+        points = np.array([[3333,  633],
+                            [2988,  558],
+                            [2547,  486],
+                            [2031,  423],
+                            [1503,  387],
+                            [1011,  384],
+                            [ 606,  399],
+                            [ 558,  495],
+                            [ 972,  480],
+                            [1491,  495],
+                            [2043,  531],
+                            [2580,  594],
+                            [3036,  666],
+                            [3384,  732],
+                            [3471,  852],
+                            [3132,  798],
+                            [2673,  729],
+                            [2115,  666],
+                            [1542,  624],
+                            [ 996,  603],
+                            [1047, 1200],
+                            [1002, 1383],
+                            [ 978, 1590],
+                            [1737, 1257],
+                            [1692, 1452],
+                            [1698, 1677],
+                            [2442, 1314],
+                            [2436, 1500],
+                            [2466, 1710],
+                            [3036, 1332],
+                            [3042, 1503],
+                            [3090, 1698],
+                            [3459, 1344],
+                            [3483, 1494],
+                            [3519, 1662],
+                            [ 204, 1101],
+                            [ 120, 1413]])
         
-        # targets = np.array([[3342,  426],
-        #                     [2811,  420],
-        #                     [2292,  417],
-        #                     [1773,  408],
-        #                     [1251,  408],
-        #                     [ 723,  399],
-        #                     [ 213,  390],
-        #                     [ 213,  546],
-        #                     [ 738,  546],
-        #                     [1257,  567],
-        #                     [1770,  567],
-        #                     [2301,  576],
-        #                     [2814,  582],
-        #                     [3333,  564],
-        #                     [3414,  732],
-        #                     [2889,  738],
-        #                     [2376,  735],
-        #                     [1851,  723],
-        #                     [1071,  723],
-        #                     [ 543,  705],
-        #                     [1017, 1311],
-        #                     [1020, 1467],
-        #                     [1029, 1629],
-        #                     [1545, 1323],
-        #                     [1539, 1473],
-        #                     [1545, 1632],
-        #                     [2067, 1329],
-        #                     [2064, 1485],
-        #                     [2067, 1647],
-        #                     [2598, 1338],
-        #                     [2586, 1494],
-        #                     [2586, 1653],
-        #                     [3105, 1350],
-        #                     [3108, 1503],
-        #                     [3108, 1659],
-        #                     [  96, 1296],
-        #                     [  96, 1614]])
+        targets = np.array([[3342,  426],
+                            [2811,  420],
+                            [2292,  417],
+                            [1773,  408],
+                            [1251,  408],
+                            [ 723,  399],
+                            [ 213,  390],
+                            [ 213,  546],
+                            [ 738,  546],
+                            [1257,  567],
+                            [1770,  567],
+                            [2301,  576],
+                            [2814,  582],
+                            [3333,  564],
+                            [3414,  732],
+                            [2889,  738],
+                            [2376,  735],
+                            [1851,  723],
+                            [1071,  723],
+                            [ 543,  705],
+                            [1017, 1311],
+                            [1020, 1467],
+                            [1029, 1629],
+                            [1545, 1323],
+                            [1539, 1473],
+                            [1545, 1632],
+                            [2067, 1329],
+                            [2064, 1485],
+                            [2067, 1647],
+                            [2598, 1338],
+                            [2586, 1494],
+                            [2586, 1653],
+                            [3105, 1350],
+                            [3108, 1503],
+                            [3108, 1659],
+                            [  96, 1296],
+                            [  96, 1614]])
         
         
         fisheye_video_path = "/home/worklab/Data/cv/video/fisheye/record_32_p2c4_00000.mp4"
