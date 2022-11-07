@@ -30,9 +30,18 @@ paths = [
 "/media/worklab/data_HDD/cv_data/video/110_foot_pole_test/Axis_Camera_16/cam_1_capture_000.avi"
 ]
 
+paths = [
+    "/home/worklab/Documents/derek/i24-dataset-gen/camera_p1c1_track_outputs_3D.mp4",
+    "/home/worklab/Documents/derek/i24-dataset-gen/camera_p1c2_track_outputs_3D.mp4",
+    "/home/worklab/Documents/derek/i24-dataset-gen/camera_p1c3_track_outputs_3D.mp4",
+    "/home/worklab/Documents/derek/i24-dataset-gen/camera_p1c4_track_outputs_3D.mp4",
+    "/home/worklab/Documents/derek/i24-dataset-gen/camera_p1c5_track_outputs_3D.mp4",
+    "/home/worklab/Documents/derek/i24-dataset-gen/camera_p1c6_track_outputs_3D.mp4"
+    ]
 
-file_out = "combined_110_foot_1.avi"
-title_frame = "/home/worklab/Desktop/110 Traffic Camera Pole Test.jpg"
+
+file_out = "CIRCLES_6_camera_half_resolution.avi"
+title_frame = None#  "/home/worklab/Desktop/110 Traffic Camera Pole Test.jpg"
 show = False
 
 
@@ -49,13 +58,13 @@ for file_in in paths:
 cam_num = len(cap_list)
 n_wide = 3
 n_high = (cam_num-1) // 3 + 1
-frame_width = int(cap_list[0].get(3)*n_wide /2.0)
-frame_height = int(cap_list[0].get(4)*n_high /2.0)
+frame_width = int(cap_list[0].get(3)*n_wide)
+frame_height = int(cap_list[0].get(4)*n_high)
 
     
 # opens VideoWriter object for saving video file if necessary
 if file_out != None:
-    out = cv2.VideoWriter(file_out,cv2.CAP_FFMPEG,cv2.VideoWriter_fourcc('H','2','6','4'), 30, (frame_width,frame_height))
+    out = cv2.VideoWriter(file_out,cv2.CAP_FFMPEG,cv2.VideoWriter_fourcc(*"MPEG"), 30, (2880,1080))
 
 # add title frame for 2.5 seconds
 if title_frame != None:
@@ -86,12 +95,12 @@ while cap.isOpened():
         
         # save frame to file if necessary
         if file_out != None:
+            combined = cv2.resize(combined, (2880, 1080))    
             out.write(combined)
-        
         
         #summary statistics
         frame_num += 1
-        print("FPS of the video is {:5.2f}".format( frame_num / (time.time() - start)))
+        print("\rFrame {}, {} fps".format(frame_num, frame_num / (time.time() - start)),end = "\r",flush = True)
                 
         # get next frames
         frames = []
@@ -112,7 +121,8 @@ while cap.isOpened():
             continue
         
  
-            
+        
+         
     else:
         break
     
